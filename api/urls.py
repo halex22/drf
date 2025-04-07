@@ -7,5 +7,5 @@ api_router.register(r'messages', viewset=MessageViewSet)
 
 
 urlpatterns = [
-    path('v1', include((api_router.urls, 'v1')))
+    path('v1/', include((api_router.urls, 'v1')))
 ]
