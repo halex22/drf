@@ -11,9 +11,10 @@ from .serializers import MessageSerializer
 class MessageViewSet(ModelViewSet):
     serializer_class = MessageSerializer
     queryset = Message.objects.all()
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
+        print(self.request)
         print(self.request.headers)
         print(self.request.user)
         return super().create(request, *args, **kwargs)

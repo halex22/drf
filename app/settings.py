@@ -1,4 +1,5 @@
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,8 +29,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
     'api',
-    'corsheaders'
+    'corsheaders',
+    
 ]
 
 MIDDLEWARE = [
@@ -115,3 +118,20 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ("Bearer",),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),  # Set the access token lifetime (e.g., 30 minutes)
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),     # Set the refresh token lifetime (e.g., 7 days)
+    'ROTATE_REFRESH_TOKENS': False,  # Whether or not to rotate refresh tokens
+    'BLACKLIST_AFTER_ROTATION': False,  # Whether to blacklist refresh tokens after rotation
+    'UPDATE_LAST_LOGIN': False,  # Whether to update the `last_login` field when using the refresh token
+}
